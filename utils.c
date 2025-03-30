@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/30 13:55:41 by marvin            #+#    #+#             */
+/*   Updated: 2025/03/30 13:56:14 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 void	free_paths(char **paths)
@@ -60,7 +72,8 @@ void	execute(char *argv, char **envp)
 	}
 	cmd = ft_split(argv, ' ');
 	if (!cmd || !cmd[0])
-		return (free_paths(cmd), ft_putstr_fd("Error: Invalid command\n", 2), exit(1));
+		return (free_paths(cmd),
+			ft_putstr_fd("Error: Invalid command\n", 2), exit(1));
 	path = find_path(cmd[0], envp);
 	if (!path)
 	{

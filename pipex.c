@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/30 13:55:38 by marvin            #+#    #+#             */
+/*   Updated: 2025/03/30 13:56:04 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 void	child_process(char **argv, char **envp, int *fd)
@@ -41,7 +53,7 @@ int	execute_pipex(char **argv, char **envp, int *fd)
 {
 	pid_t	pid1;
 	pid_t	pid2;
-	int	status;
+	int		status;
 
 	pid1 = fork();
 	if (pid1 == -1)
@@ -58,7 +70,7 @@ int	execute_pipex(char **argv, char **envp, int *fd)
 	waitpid(pid1, &status, 0);
 	waitpid(pid2, &status, 0);
 	if (WIFEXITED(status))
-		return WEXITSTATUS(status);
+		return (WEXITSTATUS(status));
 	return (1);
 }
 
