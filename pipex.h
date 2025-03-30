@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:50:42 by mvachon           #+#    #+#             */
-/*   Updated: 2025/03/21 04:38:16 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/30 16:18:55 by mvachon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ char	*find_path(char *cmd, char **envp);
 int		get_next_line(char **line);
 void	execute(char *argv, char **envp);
 int		execute_pipex(char **argv, char **envp, int *fd);
+void	handle_fork_error(int *fd);
 
 #endif

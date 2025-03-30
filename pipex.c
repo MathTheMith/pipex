@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:55:38 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/30 13:56:04 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/30 16:38:14 by mvachon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@ void	child_process(char **argv, char **envp, int *fd)
 
 	filein = open(argv[1], O_RDONLY);
 	if (filein == -1)
-		error();
+		handle_fork_error(fd);
 	if (dup2(fd[1], STDOUT_FILENO) == -1 || dup2(filein, STDIN_FILENO) == -1)
-		error();
+	{
+		close(filein);
+		handle_fork_error(fd);
+	}
 	close(filein);
 	close(fd[0]);
 	close(fd[1]);
@@ -33,9 +36,12 @@ void	parent_process(char **argv, char **envp, int *fd)
 
 	fileout = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fileout == -1)
-		error();
+		handle_fork_error(fd);
 	if (dup2(fd[0], STDIN_FILENO) == -1 || dup2(fileout, STDOUT_FILENO) == -1)
-		error();
+	{
+		close(fileout);
+		handle_fork_error(fd);
+	}
 	close(fileout);
 	close(fd[0]);
 	close(fd[1]);
@@ -44,9 +50,12 @@ void	parent_process(char **argv, char **envp, int *fd)
 
 void	handle_fork_error(int *fd)
 {
-	close(fd[0]);
-	close(fd[1]);
-	error();
+	if (fd[0] != -1)
+		close(fd[0]);
+	if (fd[1] != -1)
+		close(fd[1]);
+	perror("Error \n");
+	exit(EXIT_FAILURE);
 }
 
 int	execute_pipex(char **argv, char **envp, int *fd)
@@ -85,6 +94,6 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	}
 	if (pipe(fd) == -1)
-		error();
+		handle_fork_error(fd);
 	return (execute_pipex(argv, envp, fd));
 }
