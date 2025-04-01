@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:55:41 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/30 13:56:14 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/01 16:21:02 by mvachon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ char	*find_path(char *cmd, char **envp)
 	char	*part_path;
 
 	i = 0;
+	if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/'))
+	{
+		if(access(cmd, F_OK | X_OK) == 0)
+			return(ft_strdup(cmd));
+		ft_putstr_fd("Error : Command not found", 2);
+		exit(127);
+	}
 	while (envp[i] && !ft_strnstr(envp[i], "PATH", 4))
 		i++;
 	if (!envp[i])

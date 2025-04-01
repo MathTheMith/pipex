@@ -6,12 +6,12 @@
 #    By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/21 04:55:24 by marvin            #+#    #+#              #
-#    Updated: 2025/03/30 16:46:12 by mvachon          ###   ########lyon.fr    #
+#    Updated: 2025/04/01 16:21:47 by mvachon          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= libft.a
-SRCS 	= ft_putstr_fd.c ft_split.c ft_strjoin.c ft_strnstr.c ft_putchar_fd.c \
+SRCS 	= ft_putstr_fd.c ft_split.c ft_strjoin.c ft_strnstr.c ft_putchar_fd.c ft_strdup.c \
 			ft_strlcpy.c
 OBJS 	= ${SRCS:.c=.o}
 
