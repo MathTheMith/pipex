@@ -6,12 +6,12 @@
 #    By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/21 04:55:38 by marvin            #+#    #+#              #
-#    Updated: 2025/03/30 16:40:08 by mvachon          ###   ########lyon.fr    #
+#    Updated: 2025/04/01 16:05:47 by mvachon          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME    = pipex
-CC      = gcc
+CC      = cc
 CFLAGS  = -Wall -Wextra -Werror
 HEADER  = pipex.h
 
@@ -24,13 +24,16 @@ OBJS    = $(SRCS:%.c=$(OBJDIR)/%.o)
 LIBFTDIR = libft
 LIBFT    = $(LIBFTDIR)/libft.a
 
-all: $(NAME)
+all: force_libft $(NAME)
 
-$(NAME): $(OBJS) force_libft
-	@$(CC) $(OBJS) -L$(LIBFTDIR) -lft -o $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) -L$(LIBFTDIR) -lft -o $(NAME)
+
+$(LIBFT): 
+	$(MAKE) -C $(LIBFTDIR)
 
 force_libft:
-	@$(MAKE) -C $(LIBFTDIR)
+	@$(MAKE) -C $(LIBFTDIR) --always-make
 
 $(OBJDIR)/%.o: %.c $(HEADER)
 	@mkdir -p $(OBJDIR)
