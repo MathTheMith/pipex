@@ -6,7 +6,7 @@
 #    By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/21 04:55:38 by marvin            #+#    #+#              #
-#    Updated: 2025/04/01 16:05:47 by mvachon          ###   ########lyon.fr    #
+#    Updated: 2025/04/01 16:47:53 by mvachon          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CFLAGS  = -Wall -Wextra -Werror
 HEADER  = pipex.h
 
 SRCS    = pipex.c \
-          utils.c
+          utils.c \
+		  error.c
 
 OBJDIR  = obj
 OBJS    = $(SRCS:%.c=$(OBJDIR)/%.o)

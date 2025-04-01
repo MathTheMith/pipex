@@ -6,65 +6,68 @@
 /*   By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:55:41 by marvin            #+#    #+#             */
-/*   Updated: 2025/04/01 16:21:02 by mvachon          ###   ########lyon.fr   */
+/*   Updated: 2025/04/01 17:26:00 by mvachon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	free_paths(char **paths)
+char	*absolute_path(char *cmd)
 {
-	int	i;
-
-	if (!paths)
-		return ;
-	i = 0;
-	while (paths[i])
-	{
-		free(paths[i]);
-		i++;
-	}
-	free(paths);
-}
-
-char	*find_path(char *cmd, char **envp)
-{
-	char	**paths;
-	char	*path;
-	int		i;
-	char	*part_path;
-
-	i = 0;
 	if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/'))
 	{
-		if(access(cmd, F_OK | X_OK) == 0)
-			return(ft_strdup(cmd));
-		ft_putstr_fd("Error : Command not found", 2);
-		exit(127);
+		if (access(cmd, F_OK | X_OK) == 0)
+			return (ft_strdup(cmd));
+		ft_putstr_fd("Error: Command not found ", 2);
+		ft_putstr_fd("\n", 2);
+		free_paths(&cmd);
 	}
-	while (envp[i] && !ft_strnstr(envp[i], "PATH", 4))
-		i++;
-	if (!envp[i])
-		return (NULL);
-	paths = ft_split(envp[i] + 5, ':');
-	i = -1;
-	while (paths[++i])
+	return (NULL);
+}
+
+char	*look_for_path(char *cmd, char **paths)
+{
+	char	*path;
+	char	*part_path;
+	int		i;
+
+	i = 0;
+	while (paths[i])
 	{
 		part_path = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(part_path, cmd);
 		free(part_path);
-		if (!access(path, F_OK | X_OK))
-			return (free_paths(paths), path);
+		if (access(path, F_OK | X_OK) == 0)
+		{
+			free_paths(paths);
+			return (path);
+		}
 		free(path);
+		i++;
 	}
 	free_paths(paths);
 	return (NULL);
 }
 
-void	error(void)
+char	*find_path(char *cmd, char **envp)
 {
-	perror("Error");
-	exit(EXIT_FAILURE);
+	char	**paths;
+	char	*abs_path;
+
+	abs_path = absolute_path(cmd);
+	if (abs_path)
+		return (abs_path);
+	while (*envp && !ft_strnstr(*envp, "PATH=", 5))
+		envp++;
+	if (!*envp)
+		return (NULL);
+	paths = ft_split(*envp + 5, ':');
+	if (!paths)
+	{
+		free_paths(paths);
+		return (NULL);
+	}
+	return (look_for_path(cmd, paths));
 }
 
 void	execute(char *argv, char **envp)
