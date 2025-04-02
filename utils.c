@@ -6,7 +6,7 @@
 /*   By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:55:41 by marvin            #+#    #+#             */
-/*   Updated: 2025/04/02 09:22:04 by mvachon          ###   ########lyon.fr   */
+/*   Updated: 2025/04/02 09:25:37 by mvachon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	execute(char *argv, char **envp)
 	ft_putstr_fd("Error: Command not found: ", 2);
 	ft_putstr_fd(cmd[0], 2);
 	ft_putstr_fd("\n", 2);
+	free(path);
 	free_paths(cmd);
 	exit(127);
 }
