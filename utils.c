@@ -6,7 +6,7 @@
 /*   By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:55:41 by marvin            #+#    #+#             */
-/*   Updated: 2025/04/01 17:26:00 by mvachon          ###   ########lyon.fr   */
+/*   Updated: 2025/04/02 09:22:04 by mvachon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ char	*absolute_path(char *cmd)
 	{
 		if (access(cmd, F_OK | X_OK) == 0)
 			return (ft_strdup(cmd));
-		ft_putstr_fd("Error: Command not found ", 2);
-		ft_putstr_fd("\n", 2);
-		free_paths(&cmd);
+		ft_putstr_fd("Error: Command not found \n", 2);
 	}
 	return (NULL);
 }
@@ -35,13 +33,14 @@ char	*look_for_path(char *cmd, char **paths)
 	while (paths[i])
 	{
 		part_path = ft_strjoin(paths[i], "/");
+		if (!part_path)
+			return (free_paths(paths), NULL);
 		path = ft_strjoin(part_path, cmd);
 		free(part_path);
+		if (!path)
+			return (free_paths(paths), NULL);
 		if (access(path, F_OK | X_OK) == 0)
-		{
-			free_paths(paths);
-			return (path);
-		}
+			return (free_paths(paths), path);
 		free(path);
 		i++;
 	}
@@ -63,10 +62,7 @@ char	*find_path(char *cmd, char **envp)
 		return (NULL);
 	paths = ft_split(*envp + 5, ':');
 	if (!paths)
-	{
-		free_paths(paths);
 		return (NULL);
-	}
 	return (look_for_path(cmd, paths));
 }
 
@@ -82,17 +78,17 @@ void	execute(char *argv, char **envp)
 	}
 	cmd = ft_split(argv, ' ');
 	if (!cmd || !cmd[0])
-		return (free_paths(cmd),
-			ft_putstr_fd("Error: Invalid command\n", 2), exit(1));
-	path = find_path(cmd[0], envp);
-	if (!path)
 	{
-		ft_putstr_fd("Error: Command not found: ", 2);
-		ft_putstr_fd(cmd[0], 2);
-		ft_putstr_fd("\n", 2);
+		ft_putstr_fd("Error: Invalid command\n", 2);
 		free_paths(cmd);
-		exit(127);
+		exit(1);
 	}
-	if (execve(path, cmd, envp) == -1)
-		error();
+	path = find_path(cmd[0], envp);
+	if (path)
+		execve(path, cmd, envp);
+	ft_putstr_fd("Error: Command not found: ", 2);
+	ft_putstr_fd(cmd[0], 2);
+	ft_putstr_fd("\n", 2);
+	free_paths(cmd);
+	exit(127);
 }

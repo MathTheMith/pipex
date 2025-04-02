@@ -6,7 +6,7 @@
 /*   By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:55:38 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/30 16:38:14 by mvachon          ###   ########lyon.fr   */
+/*   Updated: 2025/04/02 09:17:55 by mvachon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	handle_fork_error(int *fd)
 		close(fd[0]);
 	if (fd[1] != -1)
 		close(fd[1]);
-	perror("Error \n");
+	perror("Error");
 	exit(EXIT_FAILURE);
 }
 
