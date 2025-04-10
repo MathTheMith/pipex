@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/21 04:55:24 by marvin            #+#    #+#              #
-#    Updated: 2025/04/10 08:04:06 by marvin           ###   ########.fr        #
+#    Updated: 2025/04/10 08:11:52 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJS 	= ${SRCS:.c=.o}
 
 HEADER	= ./
 
-CC 		= gcc
+CC 		= cc
 CFLAGS 	= -Wall -Wextra -Werror
 
 %.o: %.c
