@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/21 04:55:24 by marvin            #+#    #+#              #
-#    Updated: 2025/04/10 08:11:52 by marvin           ###   ########.fr        #
+#    Updated: 2025/04/10 08:27:43 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ SRCS 	= ft_putstr_fd.c ft_split.c ft_strjoin.c ft_strnstr.c ft_putchar_fd.c ft_s
 OBJS 	= ${SRCS:.c=.o}
 
 HEADER	= ./
+
+MAKEFLAGS += --no-print-directory
 
 CC 		= cc
 CFLAGS 	= -Wall -Wextra -Werror
