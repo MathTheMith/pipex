@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:55:41 by marvin            #+#    #+#             */
-/*   Updated: 2025/04/02 09:25:37 by mvachon          ###   ########lyon.fr   */
+/*   Updated: 2025/04/10 08:16:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ char	*absolute_path(char *cmd)
 	if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/'))
 	{
 		if (access(cmd, F_OK | X_OK) == 0)
-			return (ft_strdup(cmd));
+		{
+			if (ft_strdup(cmd))
+				return (ft_strdup(cmd));
+			ft_putstr_fd("Error: malloc failed\n", 2);
+		}
 		ft_putstr_fd("Error: Command not found \n", 2);
 	}
 	return (NULL);
