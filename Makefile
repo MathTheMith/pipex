@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/21 04:55:38 by marvin            #+#    #+#              #
-#    Updated: 2025/04/01 16:47:53 by mvachon          ###   ########lyon.fr    #
+#    Updated: 2025/04/10 08:09:06 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ SRCS    = pipex.c \
           utils.c \
 		  error.c
 
+MAKEFLAGS += --no-print-directory
+
 OBJDIR  = obj
 OBJS    = $(SRCS:%.c=$(OBJDIR)/%.o)
 
@@ -27,18 +29,18 @@ LIBFT    = $(LIBFTDIR)/libft.a
 
 all: force_libft $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(OBJS) -L$(LIBFTDIR) -lft -o $(NAME)
 
 $(LIBFT): 
 	$(MAKE) -C $(LIBFTDIR)
 
 force_libft:
-	@$(MAKE) -C $(LIBFTDIR) --always-make
+	@$(MAKE) -C $(LIBFTDIR)
 
 $(OBJDIR)/%.o: %.c $(HEADER)
 	@mkdir -p $(OBJDIR)
-	@$(CC) $(CFLAGS) -I. -c $< -o $@
+	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
 	@rm -rf $(OBJDIR)

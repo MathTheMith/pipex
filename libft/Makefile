@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/21 04:55:24 by marvin            #+#    #+#              #
-#    Updated: 2025/04/01 16:21:47 by mvachon          ###   ########lyon.fr    #
+#    Updated: 2025/04/10 08:04:06 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CC 		= gcc
 CFLAGS 	= -Wall -Wextra -Werror
 
 %.o: %.c
-	@${CC} ${CFLAGS} -I ${HEADER} -c $< -o $@
+	${CC} ${CFLAGS} -I ${HEADER} -c $< -o $@
 
 
 $(NAME):	${OBJS}
