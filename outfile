@@ -1,3 +1,10 @@
+error.c
+infile
+libft
+Makefile
+obj
+outfile
 pipex
 pipex.c
 pipex.h
+utils.c
