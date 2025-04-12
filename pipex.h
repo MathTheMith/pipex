@@ -6,13 +6,16 @@
 /*   By: mvachon <mvachon@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 14:50:42 by mvachon           #+#    #+#             */
-/*   Updated: 2025/04/11 19:54:30 by mvachon          ###   ########lyon.fr   */
+/*   Updated: 2025/04/01 17:25:44 by mvachon          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
 # include <stdio.h>
 # include <sys/wait.h>
 # include <fcntl.h>

@@ -1,7 +1,7 @@
+Makefile
 error.c
 infile
 libft
-Makefile
 obj
 outfile
 pipex
